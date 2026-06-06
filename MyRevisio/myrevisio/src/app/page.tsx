@@ -149,6 +149,19 @@ export default function LandingPage() {
         }
         .lp-mobile-menu a:last-child { border-bottom: none; }
         .lp-mobile-menu a:hover { color: var(--ink); background: var(--paper-warm); }
+        .lp-mobile-menu-cta {
+          margin: 0.75rem 1rem 1rem;
+          padding: 0.8rem 1rem !important;
+          background: var(--ink) !important;
+          color: var(--paper) !important;
+          border-radius: 10px;
+          text-align: center;
+          font-weight: 500;
+          font-size: 0.9rem !important;
+          border-bottom: none !important;
+          transition: background 0.2s !important;
+        }
+        .lp-mobile-menu-cta:hover { background: var(--lp-accent) !important; }
         @media (min-width: 769px) { .lp-mobile-menu { display: none; } }
 
         /* HERO */
@@ -643,7 +656,7 @@ export default function LandingPage() {
           .lp-email-form { flex-direction: column; }
           .lp-social-proof { gap: 2rem; }
           .lp-nav { padding: 0 1rem; position: relative; }
-          .lp-nav-links a:not(.lp-btn-nav) { display: none; }
+          .lp-nav-links a { display: none; }
           .lp-hamburger { display: block; }
           .lp-section { padding: 3.5rem 1.25rem; }
         }
@@ -656,6 +669,7 @@ export default function LandingPage() {
           <a href="#fonctionnement">Comment ça marche</a>
           <a href="#tarifs">Tarifs</a>
           <a href="/blog">Blog</a>
+          <a href="#tarifs" className="lp-btn-nav">Commencer gratuitement</a>
           <button
             className="lp-hamburger"
             onClick={() => setMenuOpen(o => !o)}
@@ -663,13 +677,13 @@ export default function LandingPage() {
           >
             {menuOpen ? '✕' : '☰'}
           </button>
-          <a href="#tarifs" className="lp-btn-nav">Commencer gratuitement</a>
         </div>
         {menuOpen && (
           <div className="lp-mobile-menu">
             <a href="#fonctionnement" onClick={() => setMenuOpen(false)}>Comment ça marche</a>
             <a href="#tarifs" onClick={() => setMenuOpen(false)}>Tarifs</a>
             <a href="/blog" onClick={() => setMenuOpen(false)}>Blog</a>
+            <a href="#tarifs" className="lp-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Commencer gratuitement</a>
           </div>
         )}
       </nav>
