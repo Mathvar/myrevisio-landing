@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 export default function LandingPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -114,16 +115,41 @@ export default function LandingPage() {
           transition: background 0.2s, transform 0.15s !important;
         }
         .lp-btn-nav:hover { background: var(--lp-accent) !important; transform: translateY(-1px); }
-        .lp-btn-blog {
-          color: var(--ink) !important;
-          font-size: 0.8rem !important;
-          font-weight: 500;
-          padding: 0.45rem 1.1rem;
-          border-radius: 999px;
+        .lp-hamburger {
+          display: none;
+          background: none;
           border: 1px solid var(--border-strong);
-          transition: background 0.2s, border-color 0.2s !important;
+          border-radius: 8px;
+          color: var(--ink);
+          font-size: 1.1rem;
+          line-height: 1;
+          padding: 0.3rem 0.55rem;
+          cursor: pointer;
+          transition: border-color 0.2s;
         }
-        .lp-btn-blog:hover { background: var(--paper-warm) !important; border-color: var(--ink) !important; }
+        .lp-hamburger:hover { border-color: var(--ink); }
+        .lp-mobile-menu {
+          position: absolute;
+          top: 60px;
+          left: 0; right: 0;
+          background: rgba(250,248,245,0.97);
+          backdrop-filter: blur(12px);
+          border-bottom: 1px solid var(--border-strong);
+          display: flex;
+          flex-direction: column;
+          z-index: 99;
+        }
+        .lp-mobile-menu a {
+          padding: 0.9rem 1rem;
+          font-size: 0.95rem;
+          color: var(--ink-soft);
+          text-decoration: none;
+          border-bottom: 1px solid var(--border);
+          transition: color 0.2s, background 0.15s;
+        }
+        .lp-mobile-menu a:last-child { border-bottom: none; }
+        .lp-mobile-menu a:hover { color: var(--ink); background: var(--paper-warm); }
+        @media (min-width: 769px) { .lp-mobile-menu { display: none; } }
 
         /* HERO */
         .lp-hero {
@@ -616,8 +642,9 @@ export default function LandingPage() {
           .lp-testimonials-grid { grid-template-columns: 1fr; }
           .lp-email-form { flex-direction: column; }
           .lp-social-proof { gap: 2rem; }
-          .lp-nav { padding: 0 1rem; }
-          .lp-nav-links a:not(.lp-btn-nav):not(.lp-btn-blog) { display: none; }
+          .lp-nav { padding: 0 1rem; position: relative; }
+          .lp-nav-links a:not(.lp-btn-nav) { display: none; }
+          .lp-hamburger { display: block; }
           .lp-section { padding: 3.5rem 1.25rem; }
         }
       `}</style>
@@ -628,9 +655,23 @@ export default function LandingPage() {
         <div className="lp-nav-links">
           <a href="#fonctionnement">Comment ça marche</a>
           <a href="#tarifs">Tarifs</a>
-          <a href="/blog" className="lp-btn-blog">Blog</a>
+          <a href="/blog">Blog</a>
+          <button
+            className="lp-hamburger"
+            onClick={() => setMenuOpen(o => !o)}
+            aria-label="Menu"
+          >
+            {menuOpen ? '✕' : '☰'}
+          </button>
           <a href="#tarifs" className="lp-btn-nav">Commencer gratuitement</a>
         </div>
+        {menuOpen && (
+          <div className="lp-mobile-menu">
+            <a href="#fonctionnement" onClick={() => setMenuOpen(false)}>Comment ça marche</a>
+            <a href="#tarifs" onClick={() => setMenuOpen(false)}>Tarifs</a>
+            <a href="/blog" onClick={() => setMenuOpen(false)}>Blog</a>
+          </div>
+        )}
       </nav>
 
       {/* HERO */}
