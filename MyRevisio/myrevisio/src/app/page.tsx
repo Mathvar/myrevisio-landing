@@ -114,6 +114,16 @@ export default function LandingPage() {
           transition: background 0.2s, transform 0.15s !important;
         }
         .lp-btn-nav:hover { background: var(--lp-accent) !important; transform: translateY(-1px); }
+        .lp-btn-blog {
+          color: var(--ink) !important;
+          font-size: 0.8rem !important;
+          font-weight: 500;
+          padding: 0.45rem 1.1rem;
+          border-radius: 999px;
+          border: 1px solid var(--border-strong);
+          transition: background 0.2s, border-color 0.2s !important;
+        }
+        .lp-btn-blog:hover { background: var(--paper-warm) !important; border-color: var(--ink) !important; }
 
         /* HERO */
         .lp-hero {
@@ -607,7 +617,7 @@ export default function LandingPage() {
           .lp-email-form { flex-direction: column; }
           .lp-social-proof { gap: 2rem; }
           .lp-nav { padding: 0 1rem; }
-          .lp-nav-links a:not(.lp-btn-nav) { display: none; }
+          .lp-nav-links a:not(.lp-btn-nav):not(.lp-btn-blog) { display: none; }
           .lp-section { padding: 3.5rem 1.25rem; }
         }
       `}</style>
@@ -618,7 +628,7 @@ export default function LandingPage() {
         <div className="lp-nav-links">
           <a href="#fonctionnement">Comment ça marche</a>
           <a href="#tarifs">Tarifs</a>
-          <a href="/blog">Blog</a>
+          <a href="/blog" className="lp-btn-blog">Blog</a>
           <a href="#tarifs" className="lp-btn-nav">Commencer gratuitement</a>
         </div>
       </nav>
