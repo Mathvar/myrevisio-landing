@@ -227,6 +227,104 @@ h1, h2, h3 {
   padding: 40px 24px;
 }
 
+/* Plan banner */
+.plan-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 20px;
+  margin-bottom: 24px;
+}
+
+.plan-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.plan-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+
+.plan-badge-free {
+  background: #f0f0ee;
+  color: #6b6560;
+}
+
+.plan-badge-pro {
+  background: #e3f0e9;
+  color: #1a6b3c;
+}
+
+.plan-banner-hint {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.btn-upgrade {
+  background: #e84c1e;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.btn-upgrade:hover { background: #c03a10; transform: translateY(-1px); }
+.btn-upgrade:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+.btn-manage-plan {
+  background: none;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-strong);
+  border-radius: 10px;
+  padding: 9px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.btn-manage-plan:hover { border-color: var(--text); color: var(--text); }
+.btn-manage-plan:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Limit banner */
+.limit-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fce9e3;
+  border: 1px solid rgba(232,76,30,0.2);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #4a453e;
+}
+
+.limit-banner-icon { flex-shrink: 0; }
+
+.limit-banner strong { color: #c03a10; }
+
+/* Disabled new project button */
+.btn-new-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 .dashboard-top {
   display: flex;
   align-items: center;

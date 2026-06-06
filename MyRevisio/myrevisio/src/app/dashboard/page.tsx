@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import BillingButton from './BillingButton'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -18,6 +19,10 @@ export default async function DashboardPage() {
     .select('first_name, plan')
     .eq('id', user.id)
     .single()
+
+  const plan = profile?.plan ?? 'free'
+  const activeCount = projects?.filter(p => p.status === 'active').length ?? 0
+  const isAtLimit = plan === 'free' && activeCount >= 2
 
   return (
     <div className="dashboard-layout">
@@ -37,11 +42,39 @@ export default async function DashboardPage() {
       </header>
 
       <main className="dashboard-main">
+        <div className="plan-banner">
+          <div className="plan-banner-left">
+            <span className={`plan-badge ${plan === 'pro' ? 'plan-badge-pro' : 'plan-badge-free'}`}>
+              {plan === 'pro' ? '✦ Pro' : 'Free'}
+            </span>
+            {plan === 'free' && (
+              <span className="plan-banner-hint">{activeCount} / 2 projets actifs</span>
+            )}
+          </div>
+          <BillingButton plan={plan} />
+        </div>
+
+        {isAtLimit && (
+          <div className="limit-banner">
+            <span className="limit-banner-icon">⚠️</span>
+            <span>
+              Vous avez atteint la limite de 2 projets actifs.{' '}
+              <strong>Passez au Pro</strong> pour des projets illimités.
+            </span>
+          </div>
+        )}
+
         <div className="dashboard-top">
           <h1>Mes projets</h1>
-          <Link href="/dashboard/new" className="btn-new">
-            + Nouveau projet
-          </Link>
+          {isAtLimit ? (
+            <span className="btn-new btn-new-disabled" aria-disabled="true">
+              + Nouveau projet
+            </span>
+          ) : (
+            <Link href="/dashboard/new" className="btn-new">
+              + Nouveau projet
+            </Link>
+          )}
         </div>
 
         {projects && projects.length > 0 ? (
@@ -73,7 +106,7 @@ export default async function DashboardPage() {
         ) : (
           <div className="empty-state">
             <div className="empty-icon">📁</div>
-            <h2>Aucun projet pour l'instant</h2>
+            <h2>Aucun projet pour l&apos;instant</h2>
             <p>Créez votre premier projet et partagez le lien avec votre client.</p>
             <Link href="/dashboard/new" className="btn-new">
               + Créer mon premier projet
