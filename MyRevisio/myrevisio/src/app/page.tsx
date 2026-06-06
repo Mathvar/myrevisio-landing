@@ -618,6 +618,7 @@ export default function LandingPage() {
         <div className="lp-nav-links">
           <a href="#fonctionnement">Comment ça marche</a>
           <a href="#tarifs">Tarifs</a>
+          <a href="/blog">Blog</a>
           <a href="#tarifs" className="lp-btn-nav">Commencer gratuitement</a>
         </div>
       </nav>
