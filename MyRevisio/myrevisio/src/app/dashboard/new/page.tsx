@@ -1,59 +1,29 @@
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
+import { createClient } from '@/lib/supabase/server'
+import NewProjectForm from './NewProjectForm'
 
-function generateSlug() {
-  const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
-  return Array.from({ length: 7 }, () => chars[Math.floor(Math.random() * chars.length)]).join('')
-}
+export default async function NewProjectPage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
 
-export default function NewProjectPage() {
-  const router = useRouter()
-  const [name, setName] = useState('')
-  const [clientName, setClientName] = useState('')
-  const [revisionsIncluded, setRevisionsIncluded] = useState(3)
-  const [pricePerExtra, setPricePerExtra] = useState(80)
-  const [description, setDescription] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  if (!user) redirect('/auth/login')
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+  const { data: profile } = await supabase
+    .from('users')
+    .select('plan')
+    .eq('id', user.id)
+    .single()
 
-    const supabase = createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+  const plan = profile?.plan ?? 'free'
 
-    if (!user) {
-      router.push('/auth/login')
-      return
-    }
+  const { count: activeCount } = await supabase
+    .from('projects')
+    .select('id', { count: 'exact', head: true })
+    .eq('user_id', user.id)
+    .eq('status', 'active')
 
-    const slug = generateSlug()
-
-    const { error } = await supabase.from('projects').insert({
-      user_id: user.id,
-      slug,
-      name,
-      client_name: clientName,
-      revisions_included: revisionsIncluded,
-      price_per_extra: pricePerExtra,
-      description,
-    })
-
-    if (error) {
-      setError(error.message)
-      setLoading(false)
-      return
-    }
-
-    router.push('/dashboard')
-    router.refresh()
-  }
+  const isAtLimit = plan === 'free' && (activeCount ?? 0) >= 2
 
   return (
     <div className="dashboard-layout">
@@ -70,86 +40,38 @@ export default function NewProjectPage() {
       </header>
 
       <main className="dashboard-main" style={{ maxWidth: 600 }}>
-        <h1 style={{ marginBottom: 8 }}>Nouveau projet</h1>
-        <p className="auth-subtitle" style={{ marginBottom: 32 }}>
-          Remplissez les informations du projet pour générer le lien client.
-        </p>
-
-        <div className="auth-card" style={{ maxWidth: '100%' }}>
-          <form onSubmit={handleSubmit}>
-            <div className="auth-field">
-              <label>Nom du projet *</label>
-              <input
-                type="text"
-                value={name}
-                onChange={e => setName(e.target.value)}
-                placeholder="Refonte site web"
-                required
-              />
-            </div>
-
-            <div className="auth-field">
-              <label>Nom du client</label>
-              <input
-                type="text"
-                value={clientName}
-                onChange={e => setClientName(e.target.value)}
-                placeholder="Dupont & Associés"
-              />
-            </div>
-
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-              <div className="auth-field">
-                <label>Révisions incluses *</label>
-                <input
-                  type="number"
-                  value={revisionsIncluded}
-                  onChange={e => setRevisionsIncluded(Number(e.target.value))}
-                  min={1}
-                  max={20}
-                  required
-                />
-              </div>
-              <div className="auth-field">
-                <label>Prix/révision extra (€ HT)</label>
-                <input
-                  type="number"
-                  value={pricePerExtra}
-                  onChange={e => setPricePerExtra(Number(e.target.value))}
-                  min={0}
-                  step={10}
-                />
-              </div>
-            </div>
-
-            <div className="auth-field">
-              <label>Description (optionnelle)</label>
-              <textarea
-                value={description}
-                onChange={e => setDescription(e.target.value)}
-                placeholder="Contexte du projet, notes pour le client..."
-                rows={3}
-                style={{
-                  width: '100%',
-                  padding: '11px 14px',
-                  border: '1px solid var(--border-strong)',
-                  borderRadius: 10,
-                  fontSize: 14,
-                  color: 'var(--text)',
-                  background: 'white',
-                  fontFamily: 'inherit',
-                  resize: 'vertical',
-                }}
-              />
-            </div>
-
-            {error && <p className="auth-error">{error}</p>}
-
-            <button type="submit" className="btn-primary" disabled={loading}>
-              {loading ? 'Création...' : 'Créer le projet'}
-            </button>
-          </form>
-        </div>
+        {isAtLimit ? (
+          <div className="auth-card" style={{ maxWidth: '100%', textAlign: 'center', padding: '48px 32px' }}>
+            <div style={{ fontSize: 40, marginBottom: 16 }}>🔒</div>
+            <h1 style={{ fontSize: 22, marginBottom: 12 }}>Limite atteinte</h1>
+            <p style={{ color: 'var(--text-muted)', fontSize: 15, marginBottom: 32, lineHeight: 1.6 }}>
+              Vous avez atteint la limite de 2 projets actifs sur le plan gratuit.
+            </p>
+            <Link
+              href="/dashboard"
+              style={{
+                display: 'inline-block',
+                background: '#e84c1e',
+                color: 'white',
+                borderRadius: 10,
+                padding: '12px 28px',
+                fontWeight: 600,
+                fontSize: 15,
+                textDecoration: 'none',
+              }}
+            >
+              Passer au Pro
+            </Link>
+          </div>
+        ) : (
+          <>
+            <h1 style={{ marginBottom: 8 }}>Nouveau projet</h1>
+            <p className="auth-subtitle" style={{ marginBottom: 32 }}>
+              Remplissez les informations du projet pour générer le lien client.
+            </p>
+            <NewProjectForm />
+          </>
+        )}
       </main>
     </div>
   )

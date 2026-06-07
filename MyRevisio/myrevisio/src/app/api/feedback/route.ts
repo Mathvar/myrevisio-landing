@@ -48,6 +48,7 @@ export async function POST(req: NextRequest) {
       to: 'mathvar2004@gmail.com',
       subject: `Nouveau retour — ${project.name}`,
       html: `
+        <meta charset="utf-8">
         <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#0f0e0d">
           <p style="font-size:14px;color:#9a8f85;margin-bottom:24px">My Revisio</p>
           <h2 style="font-size:22px;margin-bottom:8px">Nouveau retour client</h2>

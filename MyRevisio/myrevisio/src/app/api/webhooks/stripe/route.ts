@@ -77,6 +77,7 @@ export async function POST(req: NextRequest) {
               to: owner.email,
               subject: `Révision extra payée — ${project.name}`,
               html: `
+                <meta charset="utf-8">
                 <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#0f0e0d">
                   <p style="font-size:14px;color:#9a8f85;margin-bottom:24px">My Revisio</p>
                   <h2 style="font-size:22px;margin-bottom:8px">${quantity > 1 ? `${quantity} révisions supplémentaires payées` : 'Révision supplémentaire payée'}</h2>
