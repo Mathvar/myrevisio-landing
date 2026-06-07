@@ -58,9 +58,10 @@ export async function POST(req: NextRequest) {
 
         if (!project) break
 
+        const quantity = parseInt(session.metadata?.quantity ?? '1', 10)
         await adminSupabase
           .from('projects')
-          .update({ revisions_included: project.revisions_included + 1 })
+          .update({ revisions_included: project.revisions_included + quantity })
           .eq('id', projectId)
 
         const { data: owner } = await adminSupabase
@@ -78,14 +79,14 @@ export async function POST(req: NextRequest) {
               html: `
                 <div style="font-family:sans-serif;max-width:560px;margin:0 auto;color:#0f0e0d">
                   <p style="font-size:14px;color:#9a8f85;margin-bottom:24px">My Revisio</p>
-                  <h2 style="font-size:22px;margin-bottom:8px">Révision supplémentaire payée</h2>
+                  <h2 style="font-size:22px;margin-bottom:8px">${quantity > 1 ? `${quantity} révisions supplémentaires payées` : 'Révision supplémentaire payée'}</h2>
                   <p style="font-size:15px;color:#4a4540;margin-bottom:24px">
-                    <strong>${project.client_name}</strong> vient de payer une révision supplémentaire
+                    <strong>${project.client_name}</strong> vient de payer ${quantity > 1 ? `${quantity} révisions supplémentaires` : 'une révision supplémentaire'}
                     sur le projet <strong>${project.name}</strong>.
                   </p>
                   <div style="background:#f2ede6;border-radius:10px;padding:16px 20px;margin-bottom:24px">
                     <p style="font-size:13px;color:#9a8f85;margin-bottom:4px">Montant facturé</p>
-                    <p style="font-size:18px;font-weight:600;color:#0f0e0d;margin:0">${project.price_per_extra} € HT</p>
+                    <p style="font-size:18px;font-weight:600;color:#0f0e0d;margin:0">${project.price_per_extra * quantity} € HT</p>
                   </div>
                   <p style="font-size:14px;color:#4a4540">
                     Le client peut maintenant soumettre ses retours sur

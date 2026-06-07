@@ -31,6 +31,7 @@ export default function ClientPageForm({
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
   const [payLoading, setPayLoading] = useState(false)
+  const [quantity, setQuantity] = useState(1)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -40,7 +41,7 @@ export default function ClientPageForm({
       const res = await fetch('/api/stripe/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ projectId: project.id }),
+        body: JSON.stringify({ projectId: project.id, quantity }),
       })
       const { url } = await res.json()
       if (url) window.location.href = url
@@ -91,11 +92,61 @@ export default function ClientPageForm({
       {isQuotaReached ? (
         <div className="quota-box">
           <p className="quota-title">Vous avez utilisé toutes vos révisions incluses.</p>
+          <p style={{ fontSize: 14, color: '#4a4540', marginBottom: 16 }}>
+            Choisissez le nombre de révisions supplémentaires :
+          </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginBottom: 16 }}>
+            <button
+              onClick={() => setQuantity(q => Math.max(1, q - 1))}
+              disabled={quantity <= 1}
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                border: '2px solid #e84c1e',
+                background: 'white',
+                color: '#e84c1e',
+                fontSize: 20,
+                fontWeight: 700,
+                cursor: quantity <= 1 ? 'not-allowed' : 'pointer',
+                opacity: quantity <= 1 ? 0.35 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                lineHeight: 1,
+              }}
+            >−</button>
+            <span style={{ fontSize: 24, fontWeight: 700, color: '#0f0e0d', minWidth: 32, textAlign: 'center' }}>
+              {quantity}
+            </span>
+            <button
+              onClick={() => setQuantity(q => Math.min(10, q + 1))}
+              disabled={quantity >= 10}
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: '50%',
+                border: '2px solid #e84c1e',
+                background: 'white',
+                color: '#e84c1e',
+                fontSize: 20,
+                fontWeight: 700,
+                cursor: quantity >= 10 ? 'not-allowed' : 'pointer',
+                opacity: quantity >= 10 ? 0.35 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                lineHeight: 1,
+              }}
+            >+</button>
+          </div>
+          <p style={{ fontSize: 14, color: '#4a4540', marginBottom: 14, textAlign: 'center' }}>
+            Total : <strong>{(project.price_per_extra * quantity).toFixed(2).replace('.', ',')} € HT</strong>
+          </p>
           <button
             onClick={handlePay}
             disabled={payLoading}
             style={{
-              marginTop: 16,
               background: '#e84c1e',
               color: 'white',
               border: 'none',
@@ -108,11 +159,8 @@ export default function ClientPageForm({
               width: '100%',
             }}
           >
-            {payLoading ? 'Redirection...' : `Payer et continuer (${project.price_per_extra} € HT)`}
+            {payLoading ? 'Redirection...' : `Payer ${(project.price_per_extra * quantity).toFixed(2).replace('.', ',')} € HT`}
           </button>
-          <p style={{ marginTop: 8, fontSize: 13, color: '#999', textAlign: 'center' }}>
-            Une révision supplémentaire sera facturée
-          </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} style={{ marginTop: 24 }}>

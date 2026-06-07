@@ -8,7 +8,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export async function POST(req: NextRequest) {
   try {
-    const { projectId } = await req.json()
+    const { projectId, quantity = 1 } = await req.json()
     const supabase = await createClient()
 
     const { data: project } = await supabase
@@ -20,6 +20,8 @@ export async function POST(req: NextRequest) {
     if (!project) {
       return NextResponse.json({ error: 'Projet introuvable' }, { status: 404 })
     }
+
+    const qty = Math.min(Math.max(Math.floor(quantity), 1), 10)
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
@@ -33,10 +35,10 @@ export async function POST(req: NextRequest) {
             },
             unit_amount: Math.round(project.price_per_extra * 100),
           },
-          quantity: 1,
+          quantity: qty,
         },
       ],
-      metadata: { projectId: project.id },
+      metadata: { projectId: project.id, quantity: String(qty) },
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/r/${project.slug}?paid=true`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/r/${project.slug}`,
     })
