@@ -30,8 +30,24 @@ export default function ClientPageForm({
 }) {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
+  const [payLoading, setPayLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState<string | null>(null)
+
+  async function handlePay() {
+    setPayLoading(true)
+    try {
+      const res = await fetch('/api/stripe/create-payment-intent', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ projectId: project.id }),
+      })
+      const { url } = await res.json()
+      if (url) window.location.href = url
+    } finally {
+      setPayLoading(false)
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -75,8 +91,27 @@ export default function ClientPageForm({
       {isQuotaReached ? (
         <div className="quota-box">
           <p className="quota-title">Vous avez utilisé toutes vos révisions incluses.</p>
-          <p className="quota-price">
-            Le tour suivant est facturé <strong>{project.price_per_extra} € HT</strong>.
+          <button
+            onClick={handlePay}
+            disabled={payLoading}
+            style={{
+              marginTop: 16,
+              background: '#e84c1e',
+              color: 'white',
+              border: 'none',
+              borderRadius: 10,
+              padding: '12px 22px',
+              fontSize: 15,
+              fontWeight: 600,
+              cursor: payLoading ? 'not-allowed' : 'pointer',
+              opacity: payLoading ? 0.7 : 1,
+              width: '100%',
+            }}
+          >
+            {payLoading ? 'Redirection...' : `Payer et continuer (${project.price_per_extra} € HT)`}
+          </button>
+          <p style={{ marginTop: 8, fontSize: 13, color: '#999', textAlign: 'center' }}>
+            Une révision supplémentaire sera facturée
           </p>
         </div>
       ) : (
