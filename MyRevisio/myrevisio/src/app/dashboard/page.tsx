@@ -41,7 +41,7 @@ export default async function DashboardPage() {
         </div>
       </header>
 
-      <main className="dashboard-main">
+      <main className="dashboard-main" style={{ paddingTop: '24px' }}>
         <div className="plan-banner">
           <div className="plan-banner-left">
             <span className={`plan-badge ${plan === 'pro' ? 'plan-badge-pro' : 'plan-badge-free'}`}>
