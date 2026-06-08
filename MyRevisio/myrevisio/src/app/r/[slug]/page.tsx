@@ -18,13 +18,26 @@ export default async function ClientPage({
 
   if (!project) notFound()
 
-  const { data: feedbacks } = await supabase
-    .from('feedbacks')
-    .select('*')
-    .eq('project_id', project.id)
-    .order('submitted_at', { ascending: false })
+  const [{ data: feedbacks }, { data: freelanceProfile }] = await Promise.all([
+    supabase
+      .from('feedbacks')
+      .select('*')
+      .eq('project_id', project.id)
+      .order('submitted_at', { ascending: false }),
+    supabase
+      .from('users')
+      .select('payment_link, iban, bic')
+      .eq('id', project.user_id)
+      .single(),
+  ])
 
   const isQuotaReached = project.revisions_used >= project.revisions_included
+
+  const freelancePayment = {
+    payment_link: freelanceProfile?.payment_link ?? null,
+    iban: freelanceProfile?.iban ?? null,
+    bic: freelanceProfile?.bic ?? null,
+  }
 
   return (
     <div className="client-layout">
@@ -65,6 +78,7 @@ export default async function ClientPage({
           project={project}
           feedbacks={feedbacks || []}
           isQuotaReached={isQuotaReached}
+          freelancePayment={freelancePayment}
         />
       </div>
     </div>

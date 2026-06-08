@@ -35,6 +35,7 @@ export default async function DashboardPage() {
           </div>
           <div className="header-right">
             <span className="header-name">Bonjour, {profile?.first_name || 'Freelance'} 👋</span>
+            <Link href="/dashboard/profile" className="btn-signout">Mon profil</Link>
             <LogoutButton />
           </div>
         </div>
