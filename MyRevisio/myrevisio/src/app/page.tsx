@@ -924,7 +924,7 @@ export default function LandingPage() {
                 <li className="lp-muted">Branding personnalisé</li>
                 <li className="lp-muted">Historique archivé illimité</li>
               </ul>
-              <a href="#" className="lp-btn-white" onClick={handleCTA}>Commencer gratuitement</a>
+              <a href="#" className="lp-btn-white" onClick={(e) => { e.preventDefault(); handleCTA(); }}>Commencer gratuitement</a>
             </div>
             <div className="lp-price-card lp-highlighted">
               <div className="lp-price-label">Pro</div>
@@ -939,7 +939,7 @@ export default function LandingPage() {
                 <li>Branding personnalisé</li>
                 <li>Historique archivé illimité</li>
               </ul>
-              <a href="#" className="lp-btn-white lp-btn-accent" onClick={handleCTA}>Démarrer l&apos;essai gratuit</a>
+              <a href="#" className="lp-btn-white lp-btn-accent" onClick={(e) => { e.preventDefault(); handleCTA(); }}>Démarrer l&apos;essai gratuit</a>
             </div>
           </div>
         </div>
