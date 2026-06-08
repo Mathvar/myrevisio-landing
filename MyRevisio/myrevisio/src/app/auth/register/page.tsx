@@ -39,7 +39,7 @@ function RegisterForm() {
 
     const supabase = createClient()
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -50,6 +50,20 @@ function RegisterForm() {
 
     if (error) {
       setError(error.message)
+      setLoading(false)
+      return
+    }
+
+    if (data.user?.identities?.length === 0) {
+      setError('__duplicate__')
+      setLoading(false)
+      return
+    }
+
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+
+    if (signInError) {
+      setError('Compte créé, mais la connexion automatique a échoué. Connectez-vous manuellement.')
       setLoading(false)
       return
     }
@@ -75,7 +89,15 @@ function RegisterForm() {
           <Field label="Mot de passe">
             <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="8 caractères minimum" minLength={8} required />
           </Field>
-          {error && <p className="auth-error">{error}</p>}
+          {error && error !== '__duplicate__' && <p className="auth-error">{error}</p>}
+          {error === '__duplicate__' && (
+            <p className="auth-error">
+              Un compte existe déjà avec cet email.{' '}
+              <Link href="/auth/login" style={{ color: 'inherit', fontWeight: 700, textDecoration: 'underline' }}>
+                Se connecter →
+              </Link>
+            </p>
+          )}
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? 'Création...' : 'Créer mon compte'}
           </button>
