@@ -37,7 +37,7 @@ export default async function ProjectDetailPage({
       .single(),
   ])
 
-  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/r/${project.slug}`
+  const shareUrl = `${process.env.NEXT_PUBLIC_APP_URL}/r/${project.slug}`
   const progressPct = Math.min((project.revisions_used / project.revisions_included) * 100, 100)
   const isQuotaReached = project.revisions_used >= project.revisions_included
 
