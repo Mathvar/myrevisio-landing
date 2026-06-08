@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import BillingButton from './BillingButton'
+import LogoutButton from './LogoutButton'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -34,9 +35,7 @@ export default async function DashboardPage() {
           </div>
           <div className="header-right">
             <span className="header-name">Bonjour, {profile?.first_name || 'Freelance'} 👋</span>
-            <form action="/auth/signout" method="post">
-              <button type="submit" className="btn-signout">Déconnexion</button>
-            </form>
+            <LogoutButton />
           </div>
         </div>
       </header>

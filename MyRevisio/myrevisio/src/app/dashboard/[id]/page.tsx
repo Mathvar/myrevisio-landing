@@ -2,6 +2,7 @@ import { redirect, notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import CopyLinkButton from './CopyLinkButton'
+import LogoutButton from '../LogoutButton'
 
 export default async function ProjectDetailPage({
   params,
@@ -62,9 +63,7 @@ export default async function ProjectDetailPage({
           </div>
           <div className="header-right">
             <span className="header-name">{profile?.first_name || 'Freelance'}</span>
-            <form action="/auth/signout" method="post">
-              <button type="submit" className="btn-signout">Déconnexion</button>
-            </form>
+            <LogoutButton />
           </div>
         </div>
       </header>
