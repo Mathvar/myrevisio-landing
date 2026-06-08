@@ -22,6 +22,8 @@ export default async function DashboardPage() {
     .single()
 
   const plan = profile?.plan ?? 'free'
+  const openProjects = projects?.filter(p => p.status !== 'closed') ?? []
+  const closedProjects = projects?.filter(p => p.status === 'closed') ?? []
   const activeCount = projects?.filter(p => p.status === 'active').length ?? 0
   const isAtLimit = plan === 'free' && activeCount >= 2
 
@@ -77,13 +79,13 @@ export default async function DashboardPage() {
           )}
         </div>
 
-        {projects && projects.length > 0 ? (
+        {openProjects.length > 0 ? (
           <div className="projects-grid">
-            {projects.map(project => (
+            {openProjects.map(project => (
               <Link href={`/dashboard/${project.id}`} key={project.id} className="project-card">
                 <div className="project-card-top">
                   <span className={`project-status status-${project.status}`}>
-                    {project.status === 'active' ? 'Actif' : project.status === 'completed' ? 'Quota atteint' : 'Clôturé'}
+                    {project.status === 'active' ? 'Actif' : 'Quota atteint'}
                   </span>
                   <span className="project-slug">/{project.slug}</span>
                 </div>
@@ -111,6 +113,39 @@ export default async function DashboardPage() {
             <Link href="/dashboard/new" className="btn-new">
               + Créer mon premier projet
             </Link>
+          </div>
+        )}
+
+        {closedProjects.length > 0 && (
+          <div style={{ marginTop: 48 }}>
+            <h2 style={{ fontSize: 18, fontWeight: 600, color: 'var(--text-secondary)', marginBottom: 16 }}>
+              Projets clôturés
+            </h2>
+            <div className="projects-grid">
+              {closedProjects.map(project => (
+                <Link href={`/dashboard/${project.id}`} key={project.id} className="project-card" style={{ opacity: 0.7 }}>
+                  <div className="project-card-top">
+                    <span className="project-status" style={{ background: 'var(--bg-secondary)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}>
+                      Clôturé
+                    </span>
+                    <span className="project-slug">/{project.slug}</span>
+                  </div>
+                  <h2 className="project-name">{project.name}</h2>
+                  <p className="project-client">{project.client_name}</p>
+                  <div className="project-progress">
+                    <div className="progress-bar">
+                      <div
+                        className="progress-fill"
+                        style={{ width: `${Math.min((project.revisions_used / project.revisions_included) * 100, 100)}%`, background: 'var(--text-muted)' }}
+                      />
+                    </div>
+                    <span className="progress-text">
+                      {project.revisions_used} / {project.revisions_included} révisions
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
       </main>

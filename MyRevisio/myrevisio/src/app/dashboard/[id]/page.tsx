@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import CopyLinkButton from './CopyLinkButton'
 import LogoutButton from '../LogoutButton'
+import CloseProjectButton from './CloseProjectButton'
 
 export default async function ProjectDetailPage({
   params,
@@ -45,6 +46,7 @@ export default async function ProjectDetailPage({
     active: 'Actif',
     completed: 'Quota atteint',
     archived: 'Clôturé',
+    closed: 'Clôturé',
   }
 
   const createdAt = new Date(project.created_at).toLocaleDateString('fr-FR', {
@@ -62,23 +64,23 @@ export default async function ProjectDetailPage({
             <span className="logo-name">My Revisio</span>
           </div>
           <div className="header-right">
-            <span className="header-name">{profile?.first_name || 'Freelance'}</span>
+            <Link href="/dashboard" className="btn-signout">← Retour</Link>
             <LogoutButton />
           </div>
         </div>
       </header>
 
-      <main className="dashboard-main">
-        <Link href="/dashboard" className="detail-back">
-          ← Mes projets
-        </Link>
-
-        <div className="detail-top">
+      <main className="dashboard-main" style={{ paddingBottom: 48 }}>
+        <div style={{ paddingTop: 48, marginBottom: 32, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
           <div>
-            <h1>{project.name}</h1>
-            <p className="detail-client">{project.client_name}</p>
+            <h1 style={{ fontSize: 32, fontWeight: 600, fontFamily: "'DM Serif Display', serif", marginBottom: 6 }}>
+              {project.name}
+            </h1>
+            <p style={{ fontSize: 16, color: 'var(--text-muted)' }}>
+              {project.client_name}
+            </p>
           </div>
-          <span className={`project-status status-${project.status}`}>
+          <span className={`project-status status-${project.status}`} style={{ flexShrink: 0, marginTop: 6 }}>
             {statusLabel[project.status] ?? project.status}
           </span>
         </div>
@@ -178,6 +180,12 @@ export default async function ProjectDetailPage({
             </div>
           </div>
         </div>
+
+        {project.status !== 'closed' && (
+          <div style={{ marginTop: 32 }}>
+            <CloseProjectButton projectId={project.id} />
+          </div>
+        )}
       </main>
     </div>
   )
