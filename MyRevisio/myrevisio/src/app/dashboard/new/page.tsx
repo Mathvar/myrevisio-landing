@@ -39,7 +39,7 @@ export default async function NewProjectPage() {
         </div>
       </header>
 
-      <main className="dashboard-main" style={{ maxWidth: 600 }}>
+      <main className="dashboard-main" style={{ maxWidth: 600, paddingTop: 48 }}>
         {isAtLimit ? (
           <div className="auth-card" style={{ maxWidth: '100%', textAlign: 'center', padding: '48px 32px' }}>
             <div style={{ fontSize: 40, marginBottom: 16 }}>🔒</div>
@@ -65,8 +65,8 @@ export default async function NewProjectPage() {
           </div>
         ) : (
           <>
-            <h1 style={{ marginBottom: 8 }}>Nouveau projet</h1>
-            <p className="auth-subtitle" style={{ marginBottom: 32 }}>
+            <h1 style={{ fontSize: 32, fontWeight: 600, fontFamily: "'DM Serif Display', serif", marginBottom: 8 }}>Nouveau projet</h1>
+            <p className="auth-subtitle" style={{ fontSize: 16, color: 'var(--text-muted)', marginBottom: 32 }}>
               Remplissez les informations du projet pour générer le lien client.
             </p>
             <NewProjectForm />
