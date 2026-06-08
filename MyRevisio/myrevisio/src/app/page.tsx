@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 export default function LandingPage() {
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [heroEmail, setHeroEmail] = useState('')
+  const [footerEmail, setFooterEmail] = useState('')
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -19,8 +21,9 @@ export default function LandingPage() {
     setOpenFaqIndex(prev => prev === index ? null : index)
   }
 
-  const handleCTA = () => {
-    window.open('https://tally.so/r/NpdWQQ', '_blank')
+  const handleCTA = (email = '') => {
+    const url = email ? `/auth/register?email=${encodeURIComponent(email)}` : '/auth/register'
+    window.location.href = url
   }
 
   const faqItems = [
@@ -697,8 +700,8 @@ export default function LandingPage() {
             <p className="lp-hero-sub">My Revisio suit automatiquement les tours de révision, montre le compteur à ton client, et lui envoie le lien de paiement quand il dépasse. Zéro discussion. Zéro email gêné.</p>
             <div className="lp-cta-group">
               <div className="lp-email-form">
-                <input type="email" placeholder="ton@email.com" id="hero-email" />
-                <button className="lp-btn-primary" onClick={handleCTA}>Essayer gratuitement</button>
+                <input type="email" placeholder="ton@email.com" value={heroEmail} onChange={e => setHeroEmail(e.target.value)} />
+                <button className="lp-btn-primary" onClick={() => handleCTA(heroEmail)}>Essayer gratuitement</button>
               </div>
               <div className="lp-cta-note">Gratuit pour 2 projets actifs · Aucune CB requise · Annulation en 1 clic</div>
             </div>
@@ -1007,8 +1010,8 @@ export default function LandingPage() {
         <h2>Commence aujourd&apos;hui.<br />Gratuit. Sans CB.</h2>
         <p>Rejoins les freelances créatifs qui ont arrêté d&apos;offrir des révisions gratuites sans le vouloir.</p>
         <div className="lp-email-form">
-          <input type="email" placeholder="ton@email.com" id="footer-email" />
-          <button className="lp-btn-primary" onClick={handleCTA}>Commencer →</button>
+          <input type="email" placeholder="ton@email.com" value={footerEmail} onChange={e => setFooterEmail(e.target.value)} />
+          <button className="lp-btn-primary" onClick={() => handleCTA(footerEmail)}>Commencer →</button>
         </div>
         <div className="lp-cta-note" style={{justifyContent: 'center'}}>Gratuit pour 2 projets · Aucune CB requise · 14 jours d&apos;essai Pro offerts</div>
       </div>
