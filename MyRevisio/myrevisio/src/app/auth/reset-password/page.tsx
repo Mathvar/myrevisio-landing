@@ -23,24 +23,34 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   )
 }
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   const router = useRouter()
-  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
+  const [confirm, setConfirm] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
+
+    if (password !== confirm) {
+      setError('Les mots de passe ne correspondent pas.')
+      return
+    }
+
+    if (password.length < 8) {
+      setError('Le mot de passe doit contenir au moins 8 caractères.')
+      return
+    }
+
     setLoading(true)
 
     const supabase = createClient()
-
-    const { error } = await supabase.auth.signInWithPassword({ email, password })
+    const { error } = await supabase.auth.updateUser({ password })
 
     if (error) {
-      setError('Email ou mot de passe incorrect.')
+      setError('Une erreur est survenue. Veuillez réessayer.')
       setLoading(false)
       return
     }
@@ -53,27 +63,34 @@ export default function LoginPage() {
     <div className="auth-layout">
       <div className="auth-card">
         <Logo />
-        <h1>Connexion</h1>
-        <p className="auth-subtitle">Accédez à votre espace freelance</p>
+        <h1>Nouveau mot de passe</h1>
+        <p className="auth-subtitle">Choisissez un mot de passe sécurisé pour votre compte.</p>
         <form onSubmit={handleSubmit}>
-          <Field label="Email">
-            <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="sophie@design.fr" required />
+          <Field label="Nouveau mot de passe">
+            <input
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
           </Field>
-          <Field label="Mot de passe">
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="••••••••" required />
+          <Field label="Confirmer le mot de passe">
+            <input
+              type="password"
+              value={confirm}
+              onChange={e => setConfirm(e.target.value)}
+              placeholder="••••••••"
+              required
+            />
           </Field>
-          <div style={{ textAlign: 'right', marginTop: '-8px', marginBottom: '16px' }}>
-            <Link href="/auth/forgot-password" style={{ fontSize: '13px', color: 'var(--accent)', textDecoration: 'none', fontWeight: 500 }}>
-              Mot de passe oublié ?
-            </Link>
-          </div>
           {error && <p className="auth-error">{error}</p>}
           <button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading ? 'Mise à jour...' : 'Mettre à jour le mot de passe'}
           </button>
         </form>
         <p className="auth-footer">
-          Pas encore de compte ? <Link href="/auth/register">Créer un compte gratuit →</Link>
+          <Link href="/auth/login">← Retour à la connexion</Link>
         </p>
       </div>
     </div>
