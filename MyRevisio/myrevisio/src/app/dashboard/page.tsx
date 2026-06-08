@@ -29,7 +29,7 @@ export default async function DashboardPage() {
       <header className="dashboard-header">
         <div className="dashboard-header-inner">
           <div className="auth-logo">
-            <div className="logo-dot">R</div>
+            <img src="/apple-touch-icon.png" alt="My Revisio" style={{ width: '36px', height: '36px', borderRadius: '50%' }} />
             <span className="logo-name">My Revisio</span>
           </div>
           <div className="header-right">
