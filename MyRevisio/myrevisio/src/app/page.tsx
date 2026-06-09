@@ -703,7 +703,7 @@ export default function LandingPage() {
                 <input type="email" placeholder="ton@email.com" value={heroEmail} onChange={e => setHeroEmail(e.target.value)} />
                 <button className="lp-btn-primary" onClick={() => handleCTA(heroEmail)}>Essayer gratuitement</button>
               </div>
-              <div className="lp-cta-note">Gratuit pour 2 projets actifs · Aucune CB requise · Annulation en 1 clic</div>
+              <div className="lp-cta-note">Gratuit pour 2 projets actifs · Aucune CB requise</div>
             </div>
           </div>
           <div className="lp-hero-visual">
@@ -929,7 +929,7 @@ export default function LandingPage() {
             <div className="lp-price-card lp-highlighted">
               <div className="lp-price-label">Pro</div>
               <div className="lp-price-amount">12 €<span> / mois</span></div>
-              <div className="lp-price-desc">Essai 14 jours · Annulation à tout moment</div>
+              <div className="lp-price-desc">Annulation à tout moment</div>
               <ul className="lp-price-features">
                 <li>Projets illimités</li>
                 <li>Compteur de révisions</li>
@@ -1013,7 +1013,7 @@ export default function LandingPage() {
           <input type="email" placeholder="ton@email.com" value={footerEmail} onChange={e => setFooterEmail(e.target.value)} />
           <button className="lp-btn-primary" onClick={() => handleCTA(footerEmail)}>Commencer →</button>
         </div>
-        <div className="lp-cta-note" style={{justifyContent: 'center'}}>Gratuit pour 2 projets · Aucune CB requise · 14 jours d&apos;essai Pro offerts</div>
+        <div className="lp-cta-note" style={{justifyContent: 'center'}}>Gratuit pour 2 projets actifs · Aucune CB requise</div>
       </div>
 
       {/* FOOTER */}
