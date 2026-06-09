@@ -672,6 +672,7 @@ export default function LandingPage() {
           <a href="#fonctionnement">Comment ça marche</a>
           <a href="#tarifs">Tarifs</a>
           <a href="/blog">Blog</a>
+          <a href="/auth/login" style={{ background: 'transparent', border: '1.5px solid #e84c1e', color: '#e84c1e', padding: '0.45rem 1.1rem', borderRadius: '10px', fontSize: '0.8rem', fontWeight: 500, textDecoration: 'none', transition: 'opacity 0.2s' }}>Connexion</a>
           <a href="#tarifs" className="lp-btn-nav">Commencer gratuitement</a>
           <button
             className="lp-hamburger"
@@ -686,6 +687,7 @@ export default function LandingPage() {
             <a href="#fonctionnement" onClick={() => setMenuOpen(false)}>Comment ça marche</a>
             <a href="#tarifs" onClick={() => setMenuOpen(false)}>Tarifs</a>
             <a href="/blog" onClick={() => setMenuOpen(false)}>Blog</a>
+            <a href="/auth/login" onClick={() => setMenuOpen(false)}>Connexion</a>
             <a href="#tarifs" className="lp-mobile-menu-cta" onClick={() => setMenuOpen(false)}>Commencer gratuitement</a>
           </div>
         )}
