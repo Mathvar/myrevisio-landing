@@ -23,6 +23,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
 }
 
 h1, h2, h3 {
@@ -1582,6 +1583,13 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
+  .dashboard-detail {
+    overflow-x: hidden;
+    width: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+
   /* Conteneur global — empêche tout débordement horizontal */
   .dashboard-layout {
     overflow-x: hidden;
@@ -1598,6 +1606,14 @@ h1, h2, h3 {
   /* Dashboard detail — mobile */
   .detail-grid {
     grid-template-columns: 1fr;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .detail-grid > * {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .detail-card {
