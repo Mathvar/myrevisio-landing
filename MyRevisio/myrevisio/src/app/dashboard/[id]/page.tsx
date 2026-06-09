@@ -73,7 +73,7 @@ export default async function ProjectDetailPage({
       <main className="dashboard-main" style={{ paddingBottom: 48 }}>
         <div style={{ paddingTop: 48, marginBottom: 32, display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16 }}>
           <div>
-            <h1 style={{ fontSize: 32, fontWeight: 600, fontFamily: "'DM Serif Display', serif", marginBottom: 6 }}>
+            <h1 className="detail-title" style={{ fontSize: 32, fontWeight: 600, fontFamily: "'DM Serif Display', serif", marginBottom: 6 }}>
               {project.name}
             </h1>
             <p style={{ fontSize: 16, color: 'var(--text-muted)' }}>
