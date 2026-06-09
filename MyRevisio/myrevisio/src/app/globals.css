@@ -1582,6 +1582,19 @@ h1, h2, h3 {
 }
 
 @media (max-width: 768px) {
+  /* Conteneur global — empêche tout débordement horizontal */
+  .dashboard-layout {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  .dashboard-main {
+    overflow-x: hidden;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
   /* Dashboard detail — mobile */
   .detail-grid {
     grid-template-columns: 1fr;
@@ -1596,9 +1609,17 @@ h1, h2, h3 {
     font-size: 24px !important;
   }
 
-  /* Navbar mobile — logo et boutons */
-  .dashboard-header { padding: 0 16px; }
+  /* Navbar mobile — réduit le padding pour éviter le débordement */
+  .dashboard-header { padding: 0 12px; }
+  .dashboard-header-inner { gap: 8px; }
   .logo-name { font-size: 15px; }
-  .btn-signout { font-size: 12px; padding: 5px 10px; }
-  .header-right { gap: 8px; }
+  .btn-signout { font-size: 12px; padding: 5px 8px; }
+  .header-right { gap: 6px; }
+
+  /* Texte responsive navbar */
+  .nav-desktop-only { display: none; }
+}
+
+@media (min-width: 769px) {
+  .nav-mobile-only { display: none; }
 }

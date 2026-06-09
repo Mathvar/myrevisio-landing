@@ -13,7 +13,8 @@ export default function LogoutButton() {
 
   return (
     <button onClick={handleLogout} className="btn-signout">
-      Déconnexion
+      <span className="nav-desktop-only">Déconnexion</span>
+      <span className="nav-mobile-only">Exit</span>
     </button>
   )
 }

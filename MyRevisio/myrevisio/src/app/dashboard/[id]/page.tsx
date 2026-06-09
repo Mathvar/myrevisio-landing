@@ -64,7 +64,7 @@ export default async function ProjectDetailPage({
             <span className="logo-name">My Revisio</span>
           </div>
           <div className="header-right">
-            <Link href="/dashboard" className="btn-signout">← Retour</Link>
+            <Link href="/dashboard" className="btn-signout">←<span className="nav-desktop-only"> Retour</span></Link>
             <LogoutButton />
           </div>
         </div>
@@ -110,8 +110,8 @@ export default async function ProjectDetailPage({
               {isQuotaReached && (
                 <div className="quota-box" style={{ marginTop: 16 }}>
                   <p className="quota-title">Quota atteint</p>
-                  <p className="quota-price">
-                    Chaque révision supplémentaire est facturée {project.price_per_extra} €
+                  <p className="quota-price" style={{ whiteSpace: 'nowrap' }}>
+                    Révision extra : {project.price_per_extra} €
                   </p>
                 </div>
               )}
