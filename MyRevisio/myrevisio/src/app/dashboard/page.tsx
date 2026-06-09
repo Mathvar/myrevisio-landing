@@ -36,8 +36,8 @@ export default async function DashboardPage() {
             <span className="logo-name">My Revisio</span>
           </div>
           <div className="header-right">
-            <span className="header-name">Bonjour, {profile?.first_name || 'Freelance'} 👋</span>
-            <Link href="/dashboard/profile" className="btn-signout">Mon profil</Link>
+            <span className="header-name nav-desktop-only">Bonjour, {profile?.first_name || 'Freelance'} 👋</span>
+            <Link href="/dashboard/profile" className="btn-signout nav-desktop-only">Mon profil</Link>
             <LogoutButton />
           </div>
         </div>
