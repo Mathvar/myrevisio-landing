@@ -56,6 +56,12 @@ export default async function DashboardPage() {
           <BillingButton plan={plan} />
         </div>
 
+        <div className="nav-mobile-only" style={{ textAlign: 'right', marginTop: -8, marginBottom: 12 }}>
+          <Link href="/dashboard/profile" style={{ fontSize: 13, color: 'var(--text-muted)', textDecoration: 'none' }}>
+            ⚙️ Mon profil
+          </Link>
+        </div>
+
         {isAtLimit && (
           <div className="limit-banner">
             <span className="limit-banner-icon">⚠️</span>
