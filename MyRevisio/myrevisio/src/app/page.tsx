@@ -29,23 +29,43 @@ export default function LandingPage() {
   const faqItems = [
     {
       q: 'Mon client doit créer un compte ?',
-      a: 'Non. Ton client reçoit un lien unique. Il clique, il voit son espace projet, il soumet son retour. Aucune inscription, aucun mot de passe. Ça marche sur mobile et desktop.',
+      a: "Non, ton client accède à son espace via un lien unique généré automatiquement. Aucune inscription requise de sa part.",
     },
     {
       q: 'Comment la facturation extra fonctionne-t-elle ?',
-      a: 'Tu connectes ton compte Stripe (gratuit). Tu définis un prix par tour supplémentaire. Quand le quota est atteint, le client voit automatiquement un message et un bouton de paiement. Le virement arrive sur ton Stripe directement.',
+      a: "Tu définis un prix par révision supplémentaire. Quand ton client dépasse le quota, il voit ton lien de paiement (PayPal, Lydia, Stripe) ou ton RIB directement sur la page. Une fois payé, il clique \"J'ai payé, soumettre mon retour\" et peut envoyer son retour immédiatement. Tu reçois alors un email t'informant que ton client déclare avoir payé — à toi de vérifier que le paiement a bien été reçu.",
     },
     {
       q: "C'est quoi la limite du plan gratuit ?",
-      a: 'Le plan gratuit te donne 2 projets actifs simultanément. Quand un projet est clôturé, tu peux en ouvrir un nouveau. La facturation automatique des extras et le branding personnalisé sont réservés au plan Pro.',
+      a: "Le plan gratuit permet 2 projets actifs simultanément. Tu peux clôturer un projet pour en ouvrir un nouveau. Passe au Pro pour des projets illimités.",
     },
     {
       q: 'Mes données sont-elles en sécurité ?',
-      a: "Tes projets et les retours clients sont stockés sur des serveurs européens. Aucune donnée n'est revendue à des tiers. Tu peux supprimer ton compte à tout moment.",
+      a: "Oui, les données sont hébergées sur Supabase (infrastructure sécurisée). Les paiements transitent directement entre toi et ton client — My Revisio ne touche jamais à l'argent.",
     },
     {
       q: 'Puis-je annuler à tout moment ?',
-      a: "Oui. Tu gères ton abonnement depuis ton espace client sans passer par le support. Annulation en 1 clic, aucune question posée. Tu reviens sur le plan gratuit avec tes 2 projets actifs.",
+      a: 'Oui, depuis ton dashboard via "Gérer mon abonnement". Aucun engagement, aucune pénalité.',
+    },
+    {
+      q: 'Quels moyens de paiement puis-je proposer à mes clients ?',
+      a: "Tu renseignes ton lien PayPal, Lydia, Stripe ou ton IBAN dans ton profil. My Revisio l'affiche automatiquement à ton client quand il doit payer une révision supplémentaire.",
+    },
+    {
+      q: 'My Revisio prend-il une commission sur les paiements ?',
+      a: "Non. Les paiements se font directement entre toi et ton client. My Revisio ne prend aucune commission sur tes révisions extras.",
+    },
+    {
+      q: 'Pour quel type de projets puis-je utiliser My Revisio ?',
+      a: "Tout projet créatif avec des allers-retours clients : design, développement web, vidéo, rédaction, photo, illustration, etc.",
+    },
+    {
+      q: 'Que se passe-t-il quand je clôture un projet ?',
+      a: "Le lien client devient inaccessible et le projet ne compte plus dans ta limite de projets actifs. L'historique des retours reste visible dans ton dashboard.",
+    },
+    {
+      q: 'Mon client peut-il voir l\'historique de ses retours ?',
+      a: "Oui, il voit l'historique complet de toutes ses révisions directement sur sa page, sans avoir besoin de créer un compte.",
     },
   ]
 
