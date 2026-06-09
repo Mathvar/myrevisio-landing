@@ -91,7 +91,7 @@ export default function NewProjectForm() {
             />
           </div>
           <div className="auth-field">
-            <label>Prix/révision extra (€ HT)</label>
+            <label>Prix/révision extra (€)</label>
             <input
               type="number"
               value={pricePerExtra}

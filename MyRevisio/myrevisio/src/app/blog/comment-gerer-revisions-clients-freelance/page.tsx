@@ -20,7 +20,7 @@ const jsonLd = {
   description: "Guide complet pour cadrer, suivre et facturer les révisions clients en freelance. Méthodes, formulations et outils pour arrêter de perdre de l'argent.",
   author: { '@type': 'Organization', name: 'My Revisio' },
   publisher: { '@type': 'Organization', name: 'My Revisio', url: 'https://myrevisio.com' },
-  datePublished: '2026-06-02',
+  datePublished: '2026-04-15',
   url: 'https://myrevisio.com/blog/comment-gerer-revisions-clients-freelance',
 }
 
@@ -46,7 +46,7 @@ export default function BlogPost() {
         <div className="article-meta">
           <span className="meta-tag">Guide freelance</span>
           <span className="meta-dot">·</span>
-          <span className="meta-date">2 juin 2026</span>
+          <span className="meta-date">15 avril 2026</span>
           <span className="meta-dot">·</span>
           <span className="meta-read">8 min de lecture</span>
         </div>
@@ -114,7 +114,7 @@ export default function BlogPost() {
           <p>
             &quot;Le présent devis inclut <strong>3 tours de révisions</strong>. Un tour de révisions correspond
             à l&apos;ensemble des retours transmis en une seule fois par email ou via l&apos;outil de suivi.
-            Chaque tour de révisions supplémentaire sera facturé <strong>80 € HT</strong>.&quot;
+            Chaque tour de révisions supplémentaire sera facturé <strong>80 €</strong>.&quot;
           </p>
         </div>
 
@@ -210,11 +210,11 @@ export default function BlogPost() {
           <li>
             <strong>Avant d&apos;atteindre le quota :</strong> &quot;Je voulais vous informer que cette demande
             correspond à votre 3ème et dernière révision incluse dans votre devis. Si vous souhaitez des
-            modifications supplémentaires après livraison, elles seront facturées 80 € HT le tour.&quot;
+            modifications supplémentaires après livraison, elles seront facturées 80 € le tour.&quot;
           </li>
           <li>
             <strong>Au moment du dépassement :</strong> &quot;Vos 3 révisions incluses ont été utilisées. Cette
-            demande correspond à un tour supplémentaire facturé 80 € HT selon les conditions de votre devis.
+            demande correspond à un tour supplémentaire facturé 80 € selon les conditions de votre devis.
             Souhaitez-vous que je procède ?&quot;
           </li>
           <li>

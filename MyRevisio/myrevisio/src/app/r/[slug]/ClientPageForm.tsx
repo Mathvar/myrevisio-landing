@@ -117,76 +117,72 @@ export default function ClientPageForm({
         <div className="quota-box">
           <p className="quota-title">Vous avez utilisé toutes vos révisions incluses.</p>
 
-          {freelancePayment.payment_link ? (
-            /* Cas 1 : lien de paiement externe */
-            <>
-              <p style={{ fontSize: 14, color: '#4a4540', marginBottom: 20 }}>
-                Une révision supplémentaire vous sera facturée{' '}
-                <strong>{project.price_per_extra} € HT</strong>.
-              </p>
-              <a
-                href={freelancePayment.payment_link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'block',
-                  background: '#e84c1e',
-                  color: 'white',
-                  borderRadius: 10,
-                  padding: '12px 22px',
-                  fontSize: 15,
-                  fontWeight: 600,
-                  textAlign: 'center',
-                  textDecoration: 'none',
-                  marginBottom: 12,
-                }}
-              >
-                Payer {project.price_per_extra} € HT
-              </a>
-              <button
-                onClick={handlePaidClaimed}
-                disabled={notifyLoading}
-                style={{
-                  display: 'block', width: '100%',
-                  background: 'white', color: '#e84c1e',
-                  border: '2px solid #e84c1e', borderRadius: 10,
-                  padding: '11px 22px', fontSize: 14, fontWeight: 600,
-                  cursor: notifyLoading ? 'not-allowed' : 'pointer',
-                  opacity: notifyLoading ? 0.7 : 1,
-                }}
-              >
-                {notifyLoading ? 'Envoi...' : "J'ai payé, soumettre mon retour"}
-              </button>
-            </>
-          ) : freelancePayment.iban ? (
-            /* Cas 2 : virement bancaire */
+          {(freelancePayment.payment_link || freelancePayment.iban) ? (
             <>
               <p style={{ fontSize: 14, color: '#4a4540', marginBottom: 16 }}>
-                Effectuez un virement de{' '}
-                <strong>{project.price_per_extra} € HT</strong> sur ce compte :
+                Une révision supplémentaire vous sera facturée{' '}
+                <strong>{project.price_per_extra} €</strong>.
               </p>
-              <div style={{
-                background: '#f2ede6',
-                border: '1px solid rgba(15,14,13,0.1)',
-                borderRadius: 10,
-                padding: '14px 16px',
-                marginBottom: 16,
-                fontSize: 14,
-                lineHeight: 1.8,
-              }}>
-                <div><span style={{ color: '#9a8f85', fontSize: 12 }}>IBAN</span></div>
-                <div style={{ fontWeight: 600, letterSpacing: '0.05em', marginBottom: 8 }}>
-                  {freelancePayment.iban}
+
+              {/* Lien de paiement */}
+              {freelancePayment.payment_link && (
+                <div style={{
+                  background: '#f2ede6',
+                  border: '1px solid rgba(15,14,13,0.1)',
+                  borderRadius: 10,
+                  padding: '14px 16px',
+                  marginBottom: 12,
+                }}>
+                  <div style={{ fontSize: 12, color: '#9a8f85', marginBottom: 6 }}>Lien de paiement</div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+                    <span style={{ fontSize: 13, color: '#4a4540', wordBreak: 'break-all', flex: 1 }}>
+                      {freelancePayment.payment_link}
+                    </span>
+                    <a
+                      href={freelancePayment.payment_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        background: '#e84c1e', color: 'white',
+                        borderRadius: 8, padding: '7px 14px',
+                        fontSize: 13, fontWeight: 600,
+                        textDecoration: 'none', whiteSpace: 'nowrap', flexShrink: 0,
+                      }}
+                    >
+                      Ouvrir le lien
+                    </a>
+                  </div>
                 </div>
-                {freelancePayment.bic && (
-                  <>
-                    <div><span style={{ color: '#9a8f85', fontSize: 12 }}>BIC</span></div>
-                    <div style={{ fontWeight: 600, letterSpacing: '0.05em' }}>
-                      {freelancePayment.bic}
-                    </div>
-                  </>
-                )}
-              </div>
+              )}
+
+              {/* IBAN / virement */}
+              {freelancePayment.iban && (
+                <div style={{
+                  background: '#f2ede6',
+                  border: '1px solid rgba(15,14,13,0.1)',
+                  borderRadius: 10,
+                  padding: '14px 16px',
+                  marginBottom: 12,
+                  fontSize: 14,
+                  lineHeight: 1.8,
+                }}>
+                  <div style={{ fontSize: 12, color: '#9a8f85', marginBottom: 4 }}>Virement bancaire</div>
+                  <div><span style={{ color: '#9a8f85', fontSize: 12 }}>IBAN</span></div>
+                  <div style={{ fontWeight: 600, letterSpacing: '0.05em', marginBottom: 8 }}>
+                    {freelancePayment.iban}
+                  </div>
+                  {freelancePayment.bic && (
+                    <>
+                      <div><span style={{ color: '#9a8f85', fontSize: 12 }}>BIC</span></div>
+                      <div style={{ fontWeight: 600, letterSpacing: '0.05em' }}>
+                        {freelancePayment.bic}
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+
+              {/* Bouton "J'ai payé" commun */}
               <button
                 onClick={handlePaidClaimed}
                 disabled={notifyLoading}
@@ -197,6 +193,7 @@ export default function ClientPageForm({
                   padding: '12px 22px', fontSize: 15, fontWeight: 600,
                   cursor: notifyLoading ? 'not-allowed' : 'pointer',
                   opacity: notifyLoading ? 0.7 : 1,
+                  marginTop: 4,
                 }}
               >
                 {notifyLoading ? 'Envoi...' : "J'ai payé, soumettre mon retour"}
@@ -238,7 +235,7 @@ export default function ClientPageForm({
                 >+</button>
               </div>
               <p style={{ fontSize: 14, color: '#4a4540', marginBottom: 14, textAlign: 'center' }}>
-                Total : <strong>{(project.price_per_extra * quantity).toFixed(2).replace('.', ',')} € HT</strong>
+                Total : <strong>{(project.price_per_extra * quantity).toFixed(2).replace('.', ',')} €</strong>
               </p>
               <button
                 onClick={handlePay}
@@ -250,7 +247,7 @@ export default function ClientPageForm({
                   opacity: payLoading ? 0.7 : 1, width: '100%',
                 }}
               >
-                {payLoading ? 'Redirection...' : `Payer ${(project.price_per_extra * quantity).toFixed(2).replace('.', ',')} € HT`}
+                {payLoading ? 'Redirection...' : `Payer ${(project.price_per_extra * quantity).toFixed(2).replace('.', ',')} €`}
               </button>
             </>
           )}

@@ -20,7 +20,7 @@ const jsonLd = {
   description: "Ton client vient de demander sa 5ème révision alors que tu en avais inclus 2. Voici exactement quoi faire, quoi dire, et comment facturer sans créer de conflit.",
   author: { '@type': 'Organization', name: 'My Revisio' },
   publisher: { '@type': 'Organization', name: 'My Revisio', url: 'https://myrevisio.com' },
-  datePublished: '2026-06-02',
+  datePublished: '2026-05-12',
   url: 'https://myrevisio.com/blog/client-depasse-revisions-que-faire',
 }
 
@@ -46,7 +46,7 @@ export default function BlogPost() {
         <div className="article-meta">
           <span className="meta-tag">Guide freelance</span>
           <span className="meta-dot">·</span>
-          <span className="meta-date">2 juin 2026</span>
+          <span className="meta-date">12 mai 2026</span>
           <span className="meta-dot">·</span>
           <span className="meta-read">7 min de lecture</span>
         </div>
@@ -140,7 +140,7 @@ Pour mémoire, votre devis incluait 3 tours de révisions. Nous avons déjà eff
 — Tour 2 le [date] : [résumé rapide]
 — Tour 3 le [date] : [résumé rapide]
 
-Votre demande actuelle correspond donc à un 4ème tour, facturé [prix] € HT selon les conditions de votre devis.
+Votre demande actuelle correspond donc à un 4ème tour, facturé [prix] € selon les conditions de votre devis.
 
 Souhaitez-vous que je procède à ces modifications dans ce cadre ? Je vous envoie une facture dès votre confirmation.
 
@@ -161,7 +161,7 @@ Notre devis définissait un "tour de révisions" comme l'ensemble des retours tr
 
 Votre demande actuelle constitue donc un 4ème tour indépendamment de sa taille, conformément aux conditions convenues.
 
-Je reste disponible pour effectuer ces modifications pour [prix] € HT.
+Je reste disponible pour effectuer ces modifications pour [prix] €.
 
 Cordialement,
 [Prénom]`}</div>
@@ -176,7 +176,7 @@ Cordialement,
 
 Je comprends que ce point n'était peut-être pas suffisamment visible dans le devis. Pour les futurs projets, je mettrai en place un système qui vous permettra de voir votre compteur de révisions en temps réel — ainsi il n'y a aucune surprise.
 
-Pour le projet en cours, afin de trouver une solution satisfaisante pour les deux parties, je vous propose d'effectuer cette révision supplémentaire à [prix réduit] € HT (au lieu de [prix normal] €) à titre exceptionnel.
+Pour le projet en cours, afin de trouver une solution satisfaisante pour les deux parties, je vous propose d'effectuer cette révision supplémentaire à [prix réduit] € (au lieu de [prix normal] €) à titre exceptionnel.
 
 Cela vous convient-il ?
 

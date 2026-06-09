@@ -13,7 +13,7 @@ const articles = [
   {
     slug: 'comment-gerer-revisions-clients-freelance',
     tag: 'Guide freelance',
-    date: '2 juin 2026',
+    date: '15 avril 2026',
     read: '8 min',
     title: 'Comment gérer les révisions clients quand on est freelance créatif',
     description: "Tu as mis « 3 révisions incluses » dans ton devis. Ton client vient de te demander sa 7ème modification. Ce scénario, presque tous les freelances créatifs le vivent. Voici comment l'éviter définitivement.",
@@ -21,7 +21,7 @@ const articles = [
   {
     slug: 'combien-revisions-inclure-devis-freelance',
     tag: 'Guide freelance',
-    date: '2 juin 2026',
+    date: '28 avril 2026',
     read: '6 min',
     title: 'Combien de révisions inclure dans un devis freelance ?',
     description: "2 révisions ? 3 ? 5 ? Illimitées ? La réponse n'est pas universelle. Trop peu et le client se sent bridé. Trop et tu travailles gratuitement. Voici comment trouver le bon équilibre selon ton type de projet.",
@@ -29,7 +29,7 @@ const articles = [
   {
     slug: 'client-depasse-revisions-que-faire',
     tag: 'Guide freelance',
-    date: '2 juin 2026',
+    date: '12 mai 2026',
     read: '7 min',
     title: 'Mon client dépasse les révisions : que faire ?',
     description: "Ton client vient de demander sa 5ème révision alors que tu en avais inclus 2. Voici exactement quoi faire, dans quel ordre, et avec quelles formulations — sans créer de conflit.",

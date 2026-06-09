@@ -20,7 +20,7 @@ const jsonLd = {
   description: '2, 3 ou 5 révisions dans ton devis ? La bonne réponse dépend de ton type de projet. Guide complet pour graphistes et motion designers freelances.',
   author: { '@type': 'Organization', name: 'My Revisio' },
   publisher: { '@type': 'Organization', name: 'My Revisio', url: 'https://myrevisio.com' },
-  datePublished: '2026-06-02',
+  datePublished: '2026-04-28',
   url: 'https://myrevisio.com/blog/combien-revisions-inclure-devis-freelance',
 }
 
@@ -46,7 +46,7 @@ export default function BlogPost() {
         <div className="article-meta">
           <span className="meta-tag">Guide freelance</span>
           <span className="meta-dot">·</span>
-          <span className="meta-date">2 juin 2026</span>
+          <span className="meta-date">28 avril 2026</span>
           <span className="meta-dot">·</span>
           <span className="meta-read">6 min de lecture</span>
         </div>
@@ -182,7 +182,7 @@ export default function BlogPost() {
             &quot;Le présent devis inclut <strong>3 tours de révisions</strong>. Un tour correspond à l&apos;ensemble
             des retours transmis en une seule fois. Les retours doivent être communiqués dans un délai de{' '}
             <strong>5 jours ouvrés</strong> après chaque livraison. Tout tour supplémentaire sera facturé{' '}
-            <strong>90 € HT</strong>.&quot;
+            <strong>90 €</strong>.&quot;
           </p>
         </div>
 
