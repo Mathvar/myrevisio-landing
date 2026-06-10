@@ -1398,6 +1398,17 @@ h1, h2, h3 {
 
 .blog-article li strong { color: var(--ink); }
 
+.blog-article .legal-back {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+  text-decoration: none;
+  margin-bottom: 2rem;
+  transition: color 0.2s;
+}
+
+.blog-article .legal-back:hover { color: var(--accent); }
+
 .blog-article .step-list {
   list-style: none;
   padding: 0;

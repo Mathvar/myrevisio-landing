@@ -1040,7 +1040,7 @@ export default function LandingPage() {
 
       {/* FOOTER */}
       <footer className="lp-footer">
-        <p>© 2026 My Revisio · <a href="#">Mentions légales</a> · <a href="#">Politique de confidentialité</a> · <a href="#">Contact</a></p>
+        <p>© 2026 My Revisio · <a href="/legal">Mentions légales</a> · <a href="/privacy">Politique de confidentialité</a> · <a href="/terms">CGU</a></p>
         <p style={{marginTop: '0.5rem', opacity: 0.5}}>Conçu pour les graphistes, motion designers et illustrateurs freelances.</p>
       </footer>
     </div>
