@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase/client'
 
 export default function CloseProjectButton({ projectId }: { projectId: string }) {
   const router = useRouter()
@@ -15,11 +14,18 @@ export default function CloseProjectButton({ projectId }: { projectId: string })
     if (!confirmed) return
 
     setLoading(true)
-    const supabase = createClient()
-    await supabase
-      .from('projects')
-      .update({ status: 'closed' })
-      .eq('id', projectId)
+    const response = await fetch('/api/projects/close', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ projectId })
+    })
+
+    if (!response.ok) {
+      console.error('Erreur clôture: réponse serveur non ok')
+      alert('Une erreur est survenue. Veuillez réessayer.')
+      setLoading(false)
+      return
+    }
 
     router.push('/dashboard')
     router.refresh()
